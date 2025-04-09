@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.railwayservice3";
+option java_outer_classname = "RailwayService3Impl";
+
+package RailwayService3;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// so in this example you will create a server class that extends RailwayService3ImplBase
+
+// RailwayService 3 manages the "Failures Information System", where every failure or incident is reported.
+
+service RailwayService3 {
+
+   // BI-DI for each reported failure or incident, a report with an emergency call-out or maintenance schedule is generated.
+  rpc FailureReport(stream FailureRequest) returns (stream FailureResponse) {}
+}
+
+   //  message identifying a failure
+   message FailureRequest {
+
+    enum Severity {
+        LOW = 0;
+        MEDIUM = 1;
+        HIGH = 2;
+        CRITICAL = 3;
+     }
+
+     string description = 1;
+     string location = 2;
+     string train_ID  = 3;
+     Severity severity = 4;
+   }
+
+   // The response message containing answer from the server
+    message FailureResponse {
+     int32 failure_ID = 1;
+     string emergency_call = 2;
+     string mainten_call = 3;
+   }

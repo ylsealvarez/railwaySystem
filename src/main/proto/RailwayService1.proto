@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.railwayservice1";
+option java_outer_classname = "RailwayService1Impl";
+
+package RailwayService1;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// so in this example you will create a server class that extends RailwayService1ImplBase
+
+// RailwayService 1 manages the "Railway Tracking System" making use of GPS technology in trains.
+// There are sensors on trains in order to monitor positioning and speed.
+
+service RailwayService1 {
+
+   // ServerStreaming for a specific train get a stream of updates on the current positioning in GPS coordinates
+  rpc MonitorPositioning(StationRequest) returns (stream PositionResponse) {}
+  
+  //Unary for a specific train get the status in that location right now
+  rpc TrainStatus(StationRequest) returns (StatusResponse) {}
+
+}
+
+   //  message identifying a train station
+   message StationRequest {
+     string train_station = 1;
+     int32 train_iD = 2;
+   }
+
+   // The response message containing answer from the server
+   message StatusResponse {
+
+    enum TrainStatus {
+        ON_TIME = 0;
+        ARRIVED = 1;
+        DELAYED = 2;
+        CANCELLED = 3;
+    }
+     TrainStatus trainStatus= 1;
+   }
+
+   // The response message containing answer from the server
+   message PositionResponse {
+     string gps_coordinates = 1;
+     string message = 2;
+   }
+
+
+    

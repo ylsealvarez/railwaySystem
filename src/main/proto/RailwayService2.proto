@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "generated.grpc.railwayservice2";
+option java_outer_classname = "RailwayService2Impl";
+
+package RailwayService2;
+
+// The service definition.
+// The server that you implement must extend the class  <servicename>ImplBase
+// so in this example you will create a server class that extends RailwayService2ImplBase
+
+// RailwayService 2 manages the "Passenger Information System", where bookings and availability are controlled.
+
+service RailwayService2 {
+
+   // ClientStreaming- the availability on trains is obtained after the control of each passenger
+  rpc PassengersBooking(stream BookingRequest) returns (AvailabilityResponse) {}
+  
+  //Unary- for each seat booking is sent a message with info about confirmation and bookingID
+  rpc SeatBooking(SeatBookingRequest) returns (SeatBookingResponse) {}
+
+}
+
+   //  message identifying a booking
+   message BookingRequest {
+     int32 passenger_ID = 1;
+     int32 booking_ID  = 2;
+   }
+
+   //  message identifying a seat booking
+   message SeatBookingRequest {
+     int32 passenger_ID = 1;
+     string destination  = 2;
+     string origen = 3;
+   }
+
+   // The response message containing answer from the server
+   message AvailabilityResponse {
+     int32 available_seats = 1;
+     int32 occupied_seats = 2;
+   }
+
+   // The response message containing answer from the server
+   message SeatBookingResponse {
+     int32 booking_ID = 1;
+     string confirmation = 2;
+   }
