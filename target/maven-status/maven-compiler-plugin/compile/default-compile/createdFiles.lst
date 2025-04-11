@@ -61,7 +61,6 @@ generated\grpc\railwayservice1\RailwayService1Grpc$RailwayService1BaseDescriptor
 generated\grpc\railwayservice1\StationRequest$1.class
 generated\grpc\railwayservice2\SeatBookingRequest$1.class
 generated\grpc\railwayservice1\StationRequestOrBuilder.class
-com\mycompany\project\Client3$1.class
 com\mycompany\project\RailwayGUI.class
 generated\grpc\railwayservice2\RailwayService2Grpc$RailwayService2FutureStub.class
 generated\grpc\railwayservice2\RailwayService2Grpc$RailwayService2ImplBase.class
