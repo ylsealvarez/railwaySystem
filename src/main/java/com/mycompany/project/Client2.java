@@ -13,6 +13,8 @@ import generated.grpc.railwayservice2.BookingRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import java.time.LocalTime;
 
 /**
@@ -102,6 +104,14 @@ public class Client2 {
 
           return response;
        }
+        
+    // method used for AUTHENTICATION implementation
+    private static String getJwt() {
+        return Jwts.builder()
+                .setSubject("ylsealvarez") // client's identifier
+                .signWith(SignatureAlgorithm.HS256, Constants.JWT_SIGNING_KEY)
+                .compact();
+    } 
         
      public static void main(String[] args) {
         

@@ -8,6 +8,7 @@ import static com.mycompany.project.FailuresMap.getRandomFailureID;
 import generated.grpc.railwayservice3.FailureRequest;
 import generated.grpc.railwayservice3.FailureResponse;
 import generated.grpc.railwayservice3.RailwayService3Grpc.RailwayService3ImplBase;
+import io.grpc.Context;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -51,7 +52,8 @@ public class Service3 extends RailwayService3ImplBase{
  
         
     public StreamObserver<FailureRequest> failureReport(StreamObserver<FailureResponse> responseObserver) {
-
+        Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
+        System.out.println("Processing request from " + clientId);
 
         return new StreamObserver<FailureRequest>(){
 

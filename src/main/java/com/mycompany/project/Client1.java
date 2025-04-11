@@ -27,6 +27,7 @@ import java.util.logging.Logger;
  */
 public class Client1 {
 
+    
     private static final Logger logger = Logger.getLogger(Client1.class.getName());/// buscar de donde saque esto
     private static RailwayService1Stub asyncStub;
     private static RailwayService1BlockingStub syncStub;
@@ -45,8 +46,7 @@ public class Client1 {
 
         asyncStub = RailwayService1Grpc.newStub(channel); //non-blocking stub is for asynchronous calls
         syncStub= RailwayService1Grpc.newBlockingStub(channel)
-                .withCallCredentials(token);
-        
+                .withCallCredentials(token); 
     }
            
     public StatusResponse getTrainStatus(String trainStation, int trainID) {
@@ -87,7 +87,7 @@ public class Client1 {
     // method used for AUTHENTICATION implementation
     private static String getJwt() {
         return Jwts.builder()
-                .setSubject("Client1") // client's identifier
+                .setSubject("ylsealvarez") // client's identifier
                 .signWith(SignatureAlgorithm.HS256, Constants.JWT_SIGNING_KEY)
                 .compact();
     }        

@@ -10,6 +10,7 @@ import generated.grpc.railwayservice2.BookingRequest;
 import generated.grpc.railwayservice2.RailwayService2Grpc.RailwayService2ImplBase;
 import generated.grpc.railwayservice2.SeatBookingRequest;
 import generated.grpc.railwayservice2.SeatBookingResponse;
+import io.grpc.Context;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -55,9 +56,8 @@ public class Service2 extends RailwayService2ImplBase{
     */ 
     
     public StreamObserver<BookingRequest> passengersBooking(StreamObserver<AvailabilityResponse> responseObserver){
-        
-        /*io.grpc.stub.StreamObserver<generated.grpc.railwayservice2.BookingRequest> passengersBooking(
-        io.grpc.stub.StreamObserver<generated.grpc.railwayservice2.AvailabilityResponse> responseObserver)*/
+        Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
+        System.out.println("Processing request from " + clientId);
         
         return new StreamObserver<BookingRequest>(){
             
@@ -114,10 +114,12 @@ public class Service2 extends RailwayService2ImplBase{
      */
     
     public void seatBooking(SeatBookingRequest request,StreamObserver<SeatBookingResponse> response) {
+        Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
+        System.out.println("Processing request from " + clientId);
         
-       int bookingid = getRandomID();
-       String conf = "CONFIRMED";
-             
+        int bookingid = getRandomID();
+        String conf = "CONFIRMED";
+
        SeatBookingResponse sbr = SeatBookingResponse.newBuilder().setBookingID(bookingid).setConfirmation(conf).build();
        response.onNext(sbr);
        response.onCompleted();

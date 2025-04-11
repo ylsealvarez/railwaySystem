@@ -10,6 +10,8 @@ import generated.grpc.railwayservice3.RailwayService3Grpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -87,6 +89,13 @@ public class Client3 {
         return requestObserver;
     }
     
+    // method used for AUTHENTICATION implementation
+    private static String getJwt() {
+        return Jwts.builder()
+                .setSubject("ylsealvarez") // client's identifier
+                .signWith(SignatureAlgorithm.HS256, Constants.JWT_SIGNING_KEY)
+                .compact();
+    } 
 
     
     public static void main(String[] args) {

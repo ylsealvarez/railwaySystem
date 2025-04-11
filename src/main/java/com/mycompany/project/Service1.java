@@ -10,6 +10,7 @@ import generated.grpc.railwayservice1.RailwayService1Grpc.RailwayService1ImplBas
 import generated.grpc.railwayservice1.StationRequest;
 import generated.grpc.railwayservice1.StatusResponse;
 import generated.grpc.railwayservice1.StatusResponse.TrainStatus;
+import io.grpc.Context;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -51,8 +52,7 @@ public class Service1 extends RailwayService1ImplBase{
         }
 
     }
-    
-    
+   
      /*
      * UNARY
      * for a specific train get the status in that location right now
@@ -62,7 +62,7 @@ public class Service1 extends RailwayService1ImplBase{
      */
     @Override
     public void trainStatus(StationRequest request, StreamObserver<StatusResponse> responseObserver) {
-        String clientId = Constants.CLIENT_ID_CONTEXT_KEY.get();
+        Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
         System.out.println("Processing request from " + clientId);
         
         int randomStatus = getRandomNumber();
@@ -99,7 +99,7 @@ public class Service1 extends RailwayService1ImplBase{
      */
     
     public void monitorPositioning(StationRequest request, StreamObserver<PositionResponse> responseObserver){
-        String clientId = Constants.CLIENT_ID_CONTEXT_KEY.get();
+        Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
         System.out.println("Processing request from " + clientId);
         
         try{
