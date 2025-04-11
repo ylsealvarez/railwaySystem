@@ -73,7 +73,7 @@ public class Service3 extends RailwayService3ImplBase{
                     case MEDIUM:
                         String theActions = (String) fm.getCalls(request.getDescription());
                         FailureResponse response = FailureResponse.newBuilder().setFailureID(failureID)
-                                                .setMaintenCall(theActions).setEmergencyCall("").build();
+                                                .setMaintenCall(theActions).setEmergencyCall("None").build();
                         responseObserver.onNext(response);
                         System.out.println("FailureID " + failureID + " Action: " + theActions + "\n");
                         break;

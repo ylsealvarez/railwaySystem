@@ -49,44 +49,9 @@ public class Client3 {
     
     public StreamObserver<FailureRequest> getFailureReport(StreamObserver<FailureResponse> responseObserver){
         
-        responseObserver = new StreamObserver<FailureResponse>() {
-             
-            public void onNext(FailureResponse response){
 
-                System.out.println(LocalTime.now().toString() + " FailureID " + response.getFailureID() 
-                   + " Action " + response.getMaintenCall() + "\n" + response.getEmergencyCall());
-                }
-                
-                @Override
-                public void onError(Throwable t) {
-                    t.printStackTrace();
-                }
+    return asyncStub.failureReport(responseObserver);
 
-                @Override
-                public void onCompleted() {
-                    System.out.println(LocalTime.now().toString() + ": stream is completed.");
-                }
-        };
-        
-        StreamObserver<FailureRequest> requestObserver = asyncStub.failureReport(responseObserver);
-        
-        /*Thread sendThread = new Thread(() -> {
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String messageContent = scanner.nextLine();
-                FailureRequest message = FailureRequest.newBuilder().setDescription("")
-                        .setLocation("")
-                        .setTrainID("")
-                        .setSeverity(null)
-                        .build();
-                requestObserver.onNext(message);
-            }
-        });
-
-        sendThread.start();*/
-        
-
-        return requestObserver;
     }
     
     // method used for AUTHENTICATION implementation
