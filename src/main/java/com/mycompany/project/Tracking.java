@@ -6,6 +6,8 @@ import generated.grpc.railwayservice1.StatusResponse;
 import generated.grpc.railwayservice1.StatusResponse.TrainStatus;
 import java.time.LocalTime;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 /*
@@ -24,11 +26,15 @@ public class Tracking extends javax.swing.JInternalFrame {
      * Creates new form Tracking
      */
     public Tracking() {
-        initComponents();
-        Client1 = new Client1();
-        ResponseTracking.setLineWrap(true);
-        ResponseTracking.setWrapStyleWord(true);
-        ResponseTracking.setCaretPosition(ResponseTracking.getDocument().getLength());
+        try {
+            initComponents();
+            Client1 = new Client1();
+            ResponseTracking.setLineWrap(true);
+            ResponseTracking.setWrapStyleWord(true);
+            ResponseTracking.setCaretPosition(ResponseTracking.getDocument().getLength());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Tracking.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -148,51 +154,41 @@ public class Tracking extends javax.swing.JInternalFrame {
         String statusString = status.name();
         
         ResponseTracking.setText(LocalTime.now().toString() + " " + "Train to " + value1 
-                + " and TrainID " + value2 + " - " + statusString);     
+                + " and TrainID " + value2 + " - " + statusString);  
     }//GEN-LAST:event_StatusButtonActionPerformed
 
     private void PositioningButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PositioningButtonActionPerformed
         String value1 = TrainStationCheckBox.getSelectedItem().toString();
         int value2 = Integer.parseInt(TrainIDTextField.getText().trim());
         
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-        
-                Iterator<PositionResponse> responses = Client1.getMonitorPositioning(value1, value2);
-                StringBuffer responseString = new StringBuffer();
-
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        ResponseTracking.setText(""); // clean textArea
-                    }
-                });
+        new Thread(() -> {
+            Iterator<PositionResponse> responses = Client1.getMonitorPositioning(value1, value2);
+            StringBuffer responseString = new StringBuffer();
+            
+            SwingUtilities.invokeLater(() -> {
+                ResponseTracking.setText(""); // clean textArea
+            });
+            
+            if (!responses.hasNext()) {
+                responseString.append("There is no values to show");
+            } else {
                 
-                if (!responses.hasNext()) {
-                    responseString.append("There is no values to show");
-                } else {
-
-                    while (responses.hasNext()) { 
-                        PositionResponse response = responses.next();
-                        responseString.append(LocalTime.now().toString()) 
-                                   .append(" Train to ")
-                                   .append(response.getMessage())  
-                                   .append(" and trainID ")
-                                   .append(value2)
-                                   .append(", current location ")
-                                   .append(response.getGpsCoordinates())  
-                                   .append("\n");  
-                    }
+                while (responses.hasNext()) {
+                    PositionResponse response = responses.next();
+                    responseString.append(LocalTime.now().toString())
+                            .append(" Train to ")
+                            .append(response.getMessage())
+                            .append(" and trainID ")
+                            .append(value2)
+                            .append(", current location ")
+                            .append(response.getGpsCoordinates())
+                            .append("\n");
                 }
-                
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        ResponseTracking.setText(responseString.toString());
-                    }
-                });
             }
+            
+            SwingUtilities.invokeLater(() -> {
+                ResponseTracking.setText(responseString.toString());
+            });
         }).start(); // start second thread
     }//GEN-LAST:event_PositioningButtonActionPerformed
 

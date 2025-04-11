@@ -10,9 +10,13 @@ import generated.grpc.railwayservice3.RailwayService3Grpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalTime;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,7 +29,7 @@ public class Client3 {
 
     public Client3(){
                 ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
+                .forAddress("localhost", 50053)
                 .usePlaintext()
                 .build();
 
@@ -45,9 +49,10 @@ public class Client3 {
         
         responseObserver = new StreamObserver<FailureResponse>() {
              
-                public void onNext(FailureResponse response){
-                   System.out.println(LocalTime.now().toString() + " FailureID " + response.getFailureID() 
-                           + " Action " + response.getMaintenCall() + "\n" + response.getEmergencyCall());
+            public void onNext(FailureResponse response){
+
+                System.out.println(LocalTime.now().toString() + " FailureID " + response.getFailureID() 
+                   + " Action " + response.getMaintenCall() + "\n" + response.getEmergencyCall());
                 }
                 
                 @Override
@@ -62,6 +67,34 @@ public class Client3 {
         };
         
         StreamObserver<FailureRequest> requestObserver = asyncStub.failureReport(responseObserver);
+        
+        /*Thread sendThread = new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                String messageContent = scanner.nextLine();
+                FailureRequest message = FailureRequest.newBuilder().setDescription("")
+                        .setLocation("")
+                        .setTrainID("")
+                        .setSeverity(null)
+                        .build();
+                requestObserver.onNext(message);
+            }
+        });
+
+        sendThread.start();*/
+        
+
+        return requestObserver;
+    }
+    
+
+    
+    public static void main(String[] args) {
+        Client3 client3 = new Client3();
+    }
+      
+}
+
         //FailureRequest.Severity.LOW
         /*try{
             /*requestObserver.onNext(Location.newBuilder().setLocation("Monkey House").build());
@@ -91,11 +124,3 @@ public class Client3 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        return requestObserver;
-    }
-    
-    public static void main(String[] args) {
-        Client3 client3 = new Client3();
-    }
-      
-}

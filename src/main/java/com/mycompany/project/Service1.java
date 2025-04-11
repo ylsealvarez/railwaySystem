@@ -62,6 +62,8 @@ public class Service1 extends RailwayService1ImplBase{
      */
     @Override
     public void trainStatus(StationRequest request, StreamObserver<StatusResponse> responseObserver) {
+        String clientId = Constants.CLIENT_ID_CONTEXT_KEY.get();
+        System.out.println("Processing request from " + clientId);
         
         int randomStatus = getRandomNumber();
         TrainStatus status = null;
@@ -82,22 +84,11 @@ public class Service1 extends RailwayService1ImplBase{
             case 3:
                 status = TrainStatus.ARRIVED;
                 break;  
+        }     
+        StatusResponse response = StatusResponse.newBuilder().setTrainStatus(status).build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
 
-        }
-        
-             
-       StatusResponse response = StatusResponse.newBuilder().setTrainStatus(status).build();
-       responseObserver.onNext(response);
-       responseObserver.onCompleted();
-       
-       /*TemperatureLocationMap tlm = new TemperatureLocationMap();
-        // gets all the temperatures recorded for the location and returns the first one on the list
-        Double tempResponse = tlm.getCurrentTemperatureByLocation(request.getLocation());
-       Temperature temperature = Temperature.newBuilder().setTempValue(tempResponse).build();
-        response.onNext(temperature);
-        response.onCompleted();*/
-        
-      
     }
     
      /*
@@ -108,14 +99,16 @@ public class Service1 extends RailwayService1ImplBase{
      */
     
     public void monitorPositioning(StationRequest request, StreamObserver<PositionResponse> responseObserver){
+        String clientId = Constants.CLIENT_ID_CONTEXT_KEY.get();
+        System.out.println("Processing request from " + clientId);
         
         try{
-            
+            // with this wait we can see the exxception created StatusRuntimeException
             /*try {
                Thread.sleep(10000);
             } catch (InterruptedException e) {
                e.printStackTrace();
-            }*/ // with this wait we can see the exxception created StatusRuntimeException
+            }*/ 
         
             StationCoordinatesMap stm = new StationCoordinatesMap();
 
@@ -143,21 +136,5 @@ public class Service1 extends RailwayService1ImplBase{
         }catch (Exception e){
             System.err.println("Server error: ");
         }
-    }
-        
-   /*   monitorTheTemperature(Location request, StreamObserver<Temperature> response)  
-        TemperatureLocationMap tlm = new TemperatureLocationMap();
-
-        // the TemperatureLocationMap returns a list of values for the requested location
-        // the server returns these as a stream to the client
-    
-        List<Double> tempResponse = tlm.getAllTemperaturesByLocation(request.getLocation());
-        Iterator<Double> i = tempResponse.iterator();
-        while (i.hasNext()) {
-            Double value = i.next();
-            Temperature temperature = Temperature.newBuilder().setTempValue(value).build();
-            response.onNext(temperature);
-        }
-        response.onCompleted();*/
-    
+    }     
 }

@@ -26,7 +26,7 @@ public class Service3 extends RailwayService3ImplBase{
 
         Service3 server3 = new Service3();
 
-        int port = 50051;
+        int port = 50053;
 
         try {
             Server server = ServerBuilder.forPort(port)
@@ -70,20 +70,22 @@ public class Service3 extends RailwayService3ImplBase{
                     case LOW:
                     case MEDIUM:
                         String theActions = (String) fm.getCalls(request.getDescription());
-                        responseObserver.onNext(FailureResponse.newBuilder().setFailureID(failureID)
-                                .setMaintenCall(theActions).setEmergencyCall("").build());
+                        FailureResponse response = FailureResponse.newBuilder().setFailureID(failureID)
+                                                .setMaintenCall(theActions).setEmergencyCall("").build();
+                        responseObserver.onNext(response);
                         System.out.println("FailureID " + failureID + " Action: " + theActions + "\n");
                         break;
 
                     case HIGH:
                     case CRITICAL:
                         String theAction = (String) fm.getCalls(request.getDescription());
-                        responseObserver.onNext(FailureResponse.newBuilder().setFailureID(failureID)
-                                .setMaintenCall(theAction).setEmergencyCall("Emergency officials have been called in").build());
+                        FailureResponse response1 = FailureResponse.newBuilder().setFailureID(failureID)
+                                .setMaintenCall(theAction).setEmergencyCall("Emergency officials have been called in").build();
+                        responseObserver.onNext(response1);
                         System.out.println("FailureID " + failureID + " Action: " + theAction);
                         System.out.println("Emergency officials have been called in\n");
                         break;
-                }
+                }    
             }
 
             @Override

@@ -20,6 +20,8 @@ public class Failures extends javax.swing.JInternalFrame {
 
     Client3 Client3;
     StreamObserver<FailureRequest> requestObserver;
+    StreamObserver<FailureResponse> response;
+
     /**
      * Creates new form Failures
      */
@@ -39,7 +41,7 @@ public class Failures extends javax.swing.JInternalFrame {
 
         FailuresLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        FailuresResult = new javax.swing.JTextArea();
+        FailuresRequest = new javax.swing.JTextArea();
         TrainIDTextField = new javax.swing.JTextField();
         SeverityCombobox = new javax.swing.JComboBox<>();
         DescriptionLabel = new javax.swing.JLabel();
@@ -51,6 +53,10 @@ public class Failures extends javax.swing.JInternalFrame {
         DescriptionCombobox = new javax.swing.JComboBox<>();
         LocationCombobox = new javax.swing.JComboBox<>();
         FinishButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        FailureResponse = new javax.swing.JTextArea();
+        failreqlabel = new javax.swing.JLabel();
+        failresponlabel = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -60,9 +66,9 @@ public class Failures extends javax.swing.JInternalFrame {
         FailuresLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FailuresLabel.setText("Failures Information System");
 
-        FailuresResult.setColumns(20);
-        FailuresResult.setRows(5);
-        jScrollPane1.setViewportView(FailuresResult);
+        FailuresRequest.setColumns(20);
+        FailuresRequest.setRows(5);
+        jScrollPane1.setViewportView(FailuresRequest);
 
         TrainIDTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,37 +117,61 @@ public class Failures extends javax.swing.JInternalFrame {
             }
         });
 
+        FailureResponse.setColumns(20);
+        FailureResponse.setRows(5);
+        jScrollPane2.setViewportView(FailureResponse);
+
+        failreqlabel.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        failreqlabel.setLabelFor(FailuresRequest);
+        failreqlabel.setText("Failure Request");
+        failreqlabel.setToolTipText("");
+
+        failresponlabel.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        failresponlabel.setLabelFor(FailuresRequest);
+        failresponlabel.setText("Failure Response");
+        failresponlabel.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(failresponlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(failreqlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(DescriptionLabel)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TrainIDLabel)
-                                .addComponent(LocationLabel)
-                                .addComponent(SeverityLabel)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(SeverityCombobox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(TrainIDTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(DescriptionCombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(LocationCombobox, javax.swing.GroupLayout.Alignment.LEADING, 0, 204, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(FailuresLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(PrepareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(ReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(FinishButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(DescriptionLabel)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(TrainIDLabel)
+                                        .addComponent(LocationLabel)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(FailuresLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(PrepareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(TrainIDTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(DescriptionCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(LocationCombobox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(ReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(FinishButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(SeverityLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(SeverityCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,81 +179,80 @@ public class Failures extends javax.swing.JInternalFrame {
                 .addComponent(FailuresLabel)
                 .addGap(5, 5, 5)
                 .addComponent(PrepareButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DescriptionLabel)
-                    .addComponent(DescriptionCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DescriptionLabel)
+                            .addComponent(DescriptionCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TrainIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TrainIDLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LocationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LocationCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(SeverityLabel)
+                            .addComponent(SeverityCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(failreqlabel)
+                        .addGap(5, 5, 5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(ReportButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(FinishButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(failresponlabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TrainIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TrainIDLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LocationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LocationCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeverityLabel)
-                    .addComponent(SeverityCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ReportButton)
-                    .addComponent(FinishButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void SeverityComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeverityComboboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SeverityComboboxActionPerformed
 
     private void TrainIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainIDTextFieldActionPerformed
-        // TODO add your handling code here:
+        TrainIDTextField.setToolTipText("Start with IR...");
     }//GEN-LAST:event_TrainIDTextFieldActionPerformed
 
     private void PrepareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrepareButtonActionPerformed
         
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                StreamObserver<FailureResponse> responseObserver = new StreamObserver<FailureResponse>() {
-                    
-                    @Override
-                    public void onNext(FailureResponse response) {
-                        SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            System.out.print("Response from server is ready\n ");
-                                    FailuresResult.setText(LocalTime.now().toString() + " FailureID " + response.getFailureID() 
-                                               + " Action " + response.getMaintenCall() + "\n" + response.getEmergencyCall());
-                        }
+        new Thread(() -> {
+            StreamObserver<FailureResponse> responseObserver = new StreamObserver<FailureResponse>() {
+                @Override
+                public void onNext(FailureResponse response) {
+                    FailureResponse.append(response.getMaintenCall() + response.getFailureID() + response.getEmergencyCall());
+                    System.out.print("Response from server is ready\n ");
+                    SwingUtilities.invokeLater(() -> {
+                        FailureResponse.setText(LocalTime.now().toString() + " FailureID " + response.getFailureID()
+                        + " Action " + response.getMaintenCall() + "\n" + response.getEmergencyCall());
                     });
                 }
 
-            @Override
-            public void onError(Throwable t) {
-                t.printStackTrace();
-            }
+                @Override
+                public void onError(Throwable t) {
+                    t.printStackTrace();
+                }
 
-            @Override
-            public void onCompleted() {
-                System.out.println(LocalTime.now().toString() + ": stream is completed ... received " + " converted numbers");
-            }
-        };
-        requestObserver = Client3.getFailureReport(responseObserver);
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run(){
-                FailuresResult.setText("Ready to accept values for this service");
-            }
-        });
-    }
-        }).start();
+                @Override
+                public void onCompleted() {
+                    System.out.println(LocalTime.now().toString() + ": stream is completed ... received ");
+                }
+            };
+            requestObserver = Client3.getFailureReport(responseObserver);
+        }).start(); // start second thread
+        
+            FailuresRequest.setText("Ready to accept values for this service");
     }//GEN-LAST:event_PrepareButtonActionPerformed
 
     private void ReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportButtonActionPerformed
@@ -233,17 +262,40 @@ public class Failures extends javax.swing.JInternalFrame {
             String value3 = LocationCombobox.getSelectedItem().toString();
             String value4 = (String) SeverityCombobox.getSelectedItem();
             Severity severity = Severity.valueOf(value4);
-            requestObserver.onNext(FailureRequest.newBuilder().setDescription(value1).
-                    setLocation(value3).setSeverity(severity).setTrainID(value2).build());
+            FailureRequest re = FailureRequest.newBuilder().setDescription(value1).setLocation(value3).setSeverity(severity).setTrainID(value2).build();
+            Thread sendThread = new Thread(() -> {
+                requestObserver.onNext(re);
+                FailuresRequest.setText(LocalTime.now().toString() + " Report received from TrainID: " + value2 
+                                               + " passing by " + value3 + "\nFailure/Incident " + value1
+                                               + ", Severity " + value4 );
+            });
+            
+            sendThread.start();
+
+            try {
+                sendThread.join(); // Aquí usamos join
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            
+            //if(!sendThread.isAlive()){
+                FailureResponse.setText("kkkkkkkkkkk");
+            //}
+            //requestObserver = Client3.getFailureReport(responseObserver);
+   
+            //responseObserver.onNext(response);
+          
+            
         }catch(RuntimeException e){
             e.printStackTrace();
         }
-    
+      // responseObserver = new StreamObserver<FailureResponse>;
         //FailuresResult.setText(value1 + value2 + value3 + value4);
     }//GEN-LAST:event_ReportButtonActionPerformed
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinishButtonActionPerformed
         
+                
         requestObserver.onCompleted();
         System.out.println("Stream finished");
         
@@ -253,8 +305,9 @@ public class Failures extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> DescriptionCombobox;
     private javax.swing.JLabel DescriptionLabel;
+    private javax.swing.JTextArea FailureResponse;
     private javax.swing.JLabel FailuresLabel;
-    private javax.swing.JTextArea FailuresResult;
+    private javax.swing.JTextArea FailuresRequest;
     private javax.swing.JButton FinishButton;
     private javax.swing.JComboBox<String> LocationCombobox;
     private javax.swing.JLabel LocationLabel;
@@ -264,6 +317,9 @@ public class Failures extends javax.swing.JInternalFrame {
     private javax.swing.JLabel SeverityLabel;
     private javax.swing.JLabel TrainIDLabel;
     private javax.swing.JTextField TrainIDTextField;
+    private javax.swing.JLabel failreqlabel;
+    private javax.swing.JLabel failresponlabel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

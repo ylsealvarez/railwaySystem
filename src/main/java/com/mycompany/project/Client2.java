@@ -29,7 +29,7 @@ public class Client2 {
     public Client2() {
         
                 channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
+                .forAddress("localhost", 50052)
                 .usePlaintext()
                 .build();
 

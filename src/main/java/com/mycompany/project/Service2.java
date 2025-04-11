@@ -30,7 +30,7 @@ public class Service2 extends RailwayService2ImplBase{
 
         Service2 server2 = new Service2();
 
-        int port = 50051;
+        int port = 50052;
 
         try {
             Server server = ServerBuilder.forPort(port)

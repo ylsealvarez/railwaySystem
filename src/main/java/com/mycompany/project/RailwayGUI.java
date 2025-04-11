@@ -1,6 +1,5 @@
 package com.mycompany.project;
 
-import generated.grpc.railwayservice1.StatusResponse;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,13 +13,13 @@ import generated.grpc.railwayservice1.StatusResponse;
  */
 public class RailwayGUI extends javax.swing.JFrame {
 
-    Client1 Client1;
+    //Client1 Client1;
     /**
      * Creates new form RailwayGUI
      */
     public RailwayGUI() {
         initComponents();
-        Client1 = new Client1();
+        //Client1 = new Client1();
     }
 
     /**
@@ -132,9 +131,11 @@ public class RailwayGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrackingActionPerformed
+
         homeDesktop.removeAll();
         Tracking t1 = new Tracking();
         homeDesktop.add(t1).setVisible(true);
+
         
     }//GEN-LAST:event_TrackingActionPerformed
 
