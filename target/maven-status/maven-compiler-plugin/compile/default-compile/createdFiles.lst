@@ -107,6 +107,7 @@ generated\grpc\railwayservice2\RailwayService2Impl$1.class
 com\mycompany\project\Tracking$2.class
 com\mycompany\project\Tracking.class
 generated\grpc\railwayservice2\RailwayService2Grpc$RailwayService2BlockingStub.class
+com\mycompany\project\Passenger$7.class
 generated\grpc\railwayservice1\StatusResponse$TrainStatus.class
 com\mycompany\project\Client3.class
 generated\grpc\railwayservice3\RailwayService3Impl$1.class
