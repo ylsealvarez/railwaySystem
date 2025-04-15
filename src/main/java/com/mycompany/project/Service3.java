@@ -14,6 +14,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
@@ -24,9 +25,7 @@ public class Service3 extends RailwayService3ImplBase{
         private static final Logger logger = Logger.getLogger(Service3.class.getName());
 
     public static void main(String[] args) {
-
         Service3 server3 = new Service3();
-
         int port = 50053;
 
         try {
@@ -35,14 +34,21 @@ public class Service3 extends RailwayService3ImplBase{
                     .build()
                     .start();
             logger.info("Server3 started, listening on " + port);
-            System.out.println("***** Server3 started, listening on" + port + "\n");
+            System.out.println("***** Server3 started, listening on " + port + "\n");
+            
+            //  to ensure clean shutting down of the server
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.err.println("Shutting down gRPC server");
+                try {
+                    server.shutdown().awaitTermination(20, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace(System.err);
+                }
+            }));
+            
             server.awaitTermination();
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -27,22 +27,20 @@ import java.util.logging.Logger;
  */
 public class Client1 {
 
-    
-    private static final Logger logger = Logger.getLogger(Client1.class.getName());/// buscar de donde saque esto
+    private static final Logger logger = Logger.getLogger(Client1.class.getName());
     private static RailwayService1Stub asyncStub;
     private static RailwayService1BlockingStub syncStub;
     ManagedChannel channel;
 
     public Client1() throws InterruptedException{
         
-                channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051) 
-                .usePlaintext()
-                .build();
+        channel = ManagedChannelBuilder
+        .forAddress("localhost", 50051) 
+        .usePlaintext()
+        .build();
                       
         String jwt = getJwt();
         BearerToken token = new BearerToken(getJwt());
-
 
         asyncStub = RailwayService1Grpc.newStub(channel); //non-blocking stub is for asynchronous calls
         syncStub= RailwayService1Grpc.newBlockingStub(channel)
@@ -78,7 +76,6 @@ public class Client1 {
         } catch (StatusRuntimeException e) {
             logger.log(Level.WARNING, "RPC failed: {0}",e.getStatus());
             return null;
-
         }
     return responses;
 
@@ -95,7 +92,6 @@ public class Client1 {
     public static void main(String[] args) throws InterruptedException {
         
         Client1 client1 = new Client1();
-        
         String trainStation = "Connolly Station";
         int trainID = 2525;
        

@@ -17,6 +17,7 @@ import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
@@ -28,9 +29,7 @@ public class Service2 extends RailwayService2ImplBase{
     private static final Logger logger = Logger.getLogger(Service2.class.getName());
 
     public static void main(String[] args) {
-
         Service2 server2 = new Service2();
-
         int port = 50052;
 
         try {
@@ -38,19 +37,28 @@ public class Service2 extends RailwayService2ImplBase{
                     .addService(server2)
                     .build()
                     .start();
+            
             logger.info("Server2 started, listening on " + port);
-            System.out.println("***** Server2 started, listening on" + port);
+            System.out.println("***** Server2 started, listening on " + port);
+            
+            //  to ensure clean shutting down of the server
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.err.println("Shutting down gRPC server");
+                try {
+                    server.shutdown().awaitTermination(20, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace(System.err);
+                }
+            }));
+            
             server.awaitTermination();
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
+        
     
     /*// ClientStreaming- the availability on trains is obtained after the control of each passenger
     */ 

@@ -5,6 +5,7 @@ import generated.grpc.railwayservice2.SeatBookingResponse;
 import generated.grpc.railwayservice2.BookingRequest;
 import io.grpc.stub.StreamObserver;
 import java.time.LocalTime;
+import javax.swing.SwingUtilities;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -53,6 +54,7 @@ public class Passenger extends javax.swing.JInternalFrame {
         PrepareButton = new javax.swing.JButton();
         SendBookingButton = new javax.swing.JButton();
         FinishButton = new javax.swing.JButton();
+        CancelButton = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -97,7 +99,7 @@ public class Passenger extends javax.swing.JInternalFrame {
             }
         });
 
-        SendBookingButton.setText("Send Bookings");
+        SendBookingButton.setText("Send Booking");
         SendBookingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SendBookingButtonActionPerformed(evt);
@@ -108,6 +110,13 @@ public class Passenger extends javax.swing.JInternalFrame {
         FinishButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FinishButtonActionPerformed(evt);
+            }
+        });
+
+        CancelButton.setText("Cancel Booking");
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonActionPerformed(evt);
             }
         });
 
@@ -123,10 +132,10 @@ public class Passenger extends javax.swing.JInternalFrame {
                             .addComponent(PassengerIDLabel)
                             .addComponent(BookingIDLabel)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(FinishButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SendBookingButton, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))))
+                        .addGap(23, 23, 23)
+                        .addComponent(SendBookingButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CancelButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BookSeatButton)
                 .addGap(42, 42, 42))
@@ -134,34 +143,39 @@ public class Passenger extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DestinationLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PrepareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(BookingIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(PassengerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PassengerIDLabel2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(OriginLabel)
-                                .addGap(11, 11, 11))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(PassengerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PassengerID2TextField)
-                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(DestinationLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PrepareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(6, 6, 6)
+                                            .addComponent(BookingIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(PassengerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(39, 39, 39)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PassengerIDLabel2)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(OriginLabel)
+                                        .addGap(11, 11, 11))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(PassengerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(OriginComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DestinationComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 4, Short.MAX_VALUE)))
+                            .addComponent(PassengerID2TextField)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(OriginComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(DestinationComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 4, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(FinishButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -194,7 +208,8 @@ public class Passenger extends javax.swing.JInternalFrame {
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BookSeatButton)
-                            .addComponent(SendBookingButton))))
+                            .addComponent(SendBookingButton)
+                            .addComponent(CancelButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(FinishButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -245,13 +260,15 @@ public class Passenger extends javax.swing.JInternalFrame {
             @Override
             public void onNext(AvailabilityResponse response){
                 System.out.print("Response from server is ready\n ");
-                ResponsePassenger.setText(LocalTime.now().toString() + " Check-in completed. \n Available Seats: " + response.getAvailableSeats() 
-                        +", Occupied Seats " + response.getOccupiedSeats());
+                ResponsePassenger.setText(LocalTime.now().toString() + " Check-in completed. \n Available Seats: " 
+                        + response.getAvailableSeats() + ", Occupied Seats " + response.getOccupiedSeats());
             }
 
             @Override
             public void onError(Throwable t) {
-                t.printStackTrace();
+                SwingUtilities.invokeLater(() -> {
+                    ResponsePassenger.setText("Booking cancelled");
+                });
             }
 
             @Override
@@ -278,12 +295,17 @@ public class Passenger extends javax.swing.JInternalFrame {
         requestObserver.onCompleted();
     }//GEN-LAST:event_FinishButtonActionPerformed
 
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
+        Client2.cancelBooking(); // stop the stream
+    }//GEN-LAST:event_CancelButtonActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BookSeatButton;
     private javax.swing.JLabel BookingIDLabel;
     private javax.swing.JTextField BookingIDTextField;
+    private javax.swing.JButton CancelButton;
     private javax.swing.JComboBox<String> DestinationComboBox;
     private javax.swing.JLabel DestinationLabel;
     private javax.swing.JButton FinishButton;
