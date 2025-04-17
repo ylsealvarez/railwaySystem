@@ -245,11 +245,7 @@ public class Passenger extends javax.swing.JInternalFrame {
         
         SeatBookingResponse response = Client2.getSeatBooking(value1, value2, value3);
         ResponsePassenger.setText("PassengerID: " + value1 + ", Origin: " + value2 + ", Destination: " + value3 + "\n"
-                                    + "Please note your BookingID: " + response.getBookingID() + ", Status: " + response.getConfirmation());
-        
-        /*System.out.println("" + book.getPassengerID() + "" + book.getOrigen() + "" + book.getDestination());
-           System.out.println("" + response.getBookingID() + "" + response.getConfirmation() + "\n");
-*/
+                                    + "Please note your BookingID: " + response.getBookingID() + ", Status: " + response.getConfirmation());   
         
     }//GEN-LAST:event_BookSeatButtonActionPerformed
 

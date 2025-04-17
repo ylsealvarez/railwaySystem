@@ -115,8 +115,7 @@ public class Service2 extends RailwayService2ImplBase{
     }
     
      /*
-     * UNARY
-     * for each seat booking is sent a message with info about confirmation and bookingID
+     * UNARY for each seat booking is sent a message with info about confirmation and bookingID
      * @param responseObserver - response to the client is return via this object
      * @return
      */
@@ -124,20 +123,17 @@ public class Service2 extends RailwayService2ImplBase{
     public void seatBooking(SeatBookingRequest request,StreamObserver<SeatBookingResponse> response) {
         Context.Key<String> clientId = Constants.CLIENT_ID_CONTEXT_KEY;
         System.out.println("Processing request from " + clientId);
-        
+
         int bookingid = getRandomID();
         String conf = "CONFIRMED";
 
-       SeatBookingResponse sbr = SeatBookingResponse.newBuilder().setBookingID(bookingid).setConfirmation(conf).build();
-       response.onNext(sbr);
-       response.onCompleted();
-       
-       /*TemperatureLocationMap tlm = new TemperatureLocationMap();
-        // gets all the temperatures recorded for the location and returns the first one on the list
-        Double tempResponse = tlm.getCurrentTemperatureByLocation(request.getLocation());
-       Temperature temperature = Temperature.newBuilder().setTempValue(tempResponse).build();
-        response.onNext(temperature);
-        response.onCompleted();*/
+        SeatBookingResponse sbr = SeatBookingResponse.newBuilder()
+               .setBookingID(bookingid)
+               .setConfirmation(conf)
+               .build();
+        response.onNext(sbr);
+        response.onCompleted();
+
     }
     
     

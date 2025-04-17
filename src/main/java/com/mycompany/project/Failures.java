@@ -246,7 +246,7 @@ public class Failures extends javax.swing.JInternalFrame {
             requestObserver = Client3.getFailureReport(responseObserver);
         }).start(); // start second thread
         
-            FailuresRequest.setText("Ready to accept values for this service");
+            FailuresRequest.setText("Ready to initiate the stream during this journey");
     }//GEN-LAST:event_PrepareButtonActionPerformed
 
     private void ReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportButtonActionPerformed
@@ -260,7 +260,7 @@ public class Failures extends javax.swing.JInternalFrame {
             
         new Thread(() -> {
             try {
-                if (FailuresRequest.getText().contains("Ready to accept")) {
+                if (FailuresRequest.getText().contains("Ready to initiate")) {
                     FailuresRequest.setText(""); 
                 }
                 SwingUtilities.invokeLater(() -> {
@@ -287,9 +287,10 @@ public class Failures extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ReportButtonActionPerformed
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinishButtonActionPerformed
-        
-                
+              
         requestObserver.onCompleted();
+        FailuresRequest.append("Stream initiated during this journey is terminated.");
+        FailureResponse.append("Stream initiated during this journey is terminated.");
         System.out.println("Stream finished");
         
     }//GEN-LAST:event_FinishButtonActionPerformed

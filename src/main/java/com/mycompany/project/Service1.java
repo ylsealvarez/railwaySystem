@@ -61,8 +61,7 @@ public class Service1 extends RailwayService1ImplBase{
      /*
      * UNARY
      * for a specific train get the status in that location right now
-     * @param responseObserver - response to the client is return via this
-     * object
+     * @param responseObserver - response to the client is return via this object
      * @return
      */
     @Override

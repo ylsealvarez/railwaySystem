@@ -60,7 +60,6 @@ public class Client2 {
         
         
     public SeatBookingResponse getSeatBooking(int passengerID, String destination, String origen){
-
         int value1 = passengerID;
         String value2 = destination;
         String value3 = origen;
@@ -70,9 +69,7 @@ public class Client2 {
                                .setDestination(value2)
                                .setOrigen(value3)
                                .build();
-
        SeatBookingResponse response = syncStub.seatBooking(book);
-
        System.out.println("PassengerID: " + book.getPassengerID() + ", Origin: " + book.getOrigen() + ", Destination: " + book.getDestination());
        System.out.println("Please note your BookingID: " + response.getBookingID() + ", Status: " + response.getConfirmation() + "\n");
 

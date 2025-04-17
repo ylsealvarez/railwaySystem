@@ -12,13 +12,7 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.LocalTime;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
+
 
 /**
  *
@@ -34,22 +28,15 @@ public class Client3 {
                 .forAddress("localhost", 50053)
                 .usePlaintext()
                 .build();
-
-        //non-blocking stub is for asynchronous calls
-        //client does not wait for server to complete before starting to read responses
-        //must use non-blocking stub for client streaming and bidirectional streaming
-        //can also use for Server Streaming asynchronously 
-        asyncStub = RailwayService3Grpc.newStub(channel);
+          
+        asyncStub = RailwayService3Grpc.newStub(channel); //non-blocking stub is for asynchronous calls
         syncStub= RailwayService3Grpc.newBlockingStub(channel);
     
-        
-        //getFailureReport();
     }
     
     
     public StreamObserver<FailureRequest> getFailureReport(StreamObserver<FailureResponse> responseObserver){
         
-
     return asyncStub.failureReport(responseObserver);
 
     }
@@ -69,32 +56,3 @@ public class Client3 {
       
 }
 
-        //FailureRequest.Severity.LOW
-        /*try{
-            /*requestObserver.onNext(Location.newBuilder().setLocation("Monkey House").build());
-            request.onNext(FailureRequest.newBuilder()
-                    .setDescription("Heating")
-                    .setLocation("Bray Station")
-                    .setTrainID("58741")
-                    .setSeverity(FailureRequest.Severity.LOW)
-                    .build());
-        
-            Thread.sleep(1000);
-            
-            request.onNext(FailureRequest.newBuilder()
-                    .setDescription("Route Obstruction")
-                    .setLocation("Rosslare Station")
-                    .setTrainID("87452")
-                    .setSeverity(FailureRequest.Severity.CRITICAL)
-                    .build());
-            
-            request.onCompleted();
-        
-            
-            
-            
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/

@@ -24,23 +24,23 @@ public class ServiceRegistration {
 
             // Register a service
             // Note that this code does not start the service. 
-            ServiceInfo service1 = ServiceInfo.create("_http._tcp.local.", "server1", 50051, "path=index.html");
+            ServiceInfo service1 = ServiceInfo.create("_grpc._tcp.local.", "server1", 50051, " ");
             jmdns.registerService(service1);
-            System.out.println("Servicio publicado. Esperando...");
+            System.out.println("Registered service. Waiting...");
 
             // Wait a bit
             Thread.sleep(20000);
             
-            ServiceInfo service2 = ServiceInfo.create("_http._tcp.local.", "server2", 50052, "path=index.html");
+            ServiceInfo service2 = ServiceInfo.create("_grpc._tcp.local.", "server2", 50052, " ");
             jmdns.registerService(service2);
-            System.out.println("Servicio publicado. Esperando...");
+            System.out.println("Registered service. Waiting...");
             
             // Wait a bit
             Thread.sleep(20000);
             
-            ServiceInfo service3 = ServiceInfo.create("_http._tcp.local.", "server3", 50053, "path=index.html");
+            ServiceInfo service3 = ServiceInfo.create("_grpc._tcp.local.", "server3", 50053, " ");
             jmdns.registerService(service3);
-            System.out.println("Servicio publicado. Esperando...");
+            System.out.println("Registered service. Waiting...");
 
             // Unregister all services
             //jmdns.unregisterAllServices();
