@@ -15,7 +15,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 
 /**
- *
+ * This class defines the 3rd Service about "Failures Information System"
+ * a Bi-Directional method is implemented
  * @author alvar
  */
 public class Client3 {
@@ -28,16 +29,25 @@ public class Client3 {
                 .forAddress("localhost", 50053)
                 .usePlaintext()
                 .build();
+                
+        String jwt = getJwt();
+        BearerToken token = new BearerToken(getJwt());
           
-        asyncStub = RailwayService3Grpc.newStub(channel); //non-blocking stub is for asynchronous calls
+        asyncStub = RailwayService3Grpc.newStub(channel)
+                .withCallCredentials(token); //non-blocking stub is for asynchronous calls
         syncStub= RailwayService3Grpc.newBlockingStub(channel);
     
     }
     
-    
+    /*
+    * BI-DIrectional 
+    * for each reported failure or incident, a report with an emergency or maintenance call is generated.
+    * rpc FailureReport(stream FailureRequest) returns (stream FailureResponse) {}
+    */
     public StreamObserver<FailureRequest> getFailureReport(StreamObserver<FailureResponse> responseObserver){
+        System.out.println("Bi-Directional Streaming - requestFailureReport ");
         
-    return asyncStub.failureReport(responseObserver);
+        return asyncStub.failureReport(responseObserver);
 
     }
     

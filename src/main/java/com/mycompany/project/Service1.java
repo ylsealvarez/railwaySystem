@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
- *
+ * Service 1 "Railway Tracking System"
  * @author alvar
  */
 public class Service1 extends RailwayService1ImplBase{
@@ -61,8 +61,8 @@ public class Service1 extends RailwayService1ImplBase{
      /*
      * UNARY
      * for a specific train get the status in that location right now
-     * @param responseObserver - response to the client is return via this object
-     * @return
+     * @param request
+     * @param responseObserver
      */
     @Override
     public void trainStatus(StationRequest request, StreamObserver<StatusResponse> responseObserver) {
@@ -99,7 +99,7 @@ public class Service1 extends RailwayService1ImplBase{
      * ServerSTREAMING
      * for a specific train get a stream of updates on the current positioning in GPS coordinates
      * @param request
-     * @param response
+     * @param responseObserver
      */
     
     public void monitorPositioning(StationRequest request, StreamObserver<PositionResponse> responseObserver){
@@ -107,7 +107,8 @@ public class Service1 extends RailwayService1ImplBase{
         System.out.println("Processing request from " + clientId);
         
         try{
-            // with this wait we can see the exxception created StatusRuntimeException
+            // with this wait we can see the StatusRuntimeException created in Client1(getMonitorPositioning)
+            // uncomment if you want to see the error/exception
             /*try {
                Thread.sleep(10000);
             } catch (InterruptedException e) {
@@ -130,7 +131,7 @@ public class Service1 extends RailwayService1ImplBase{
                 
                 responseObserver.onNext(gps_message);
                 try {	
-                    Thread.sleep(100);//wait for a second
+                    Thread.sleep(100);//wait for a few seconds
 		} catch (InterruptedException e) {
                     e.printStackTrace();
                 }    

@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
- *
+ * Service 3 - "Failures Information System"
  * @author alvar
  */
 public class Service3 extends RailwayService3ImplBase{
@@ -54,7 +54,11 @@ public class Service3 extends RailwayService3ImplBase{
         }
     }
     
-    // BI-DI for each reported failure or incident, a report with an emergency call-out or maintenance schedule is generated.
+    /*BI-DIrectional Streaming 
+    * for each reported failure or incident, a report with an emergency or maintenance call is generated.
+    * @param request
+    * @param responseObserver
+    */
  
         
     public StreamObserver<FailureRequest> failureReport(StreamObserver<FailureResponse> responseObserver) {
@@ -74,6 +78,7 @@ public class Service3 extends RailwayService3ImplBase{
                     + ", Failure/Incident " + request.getDescription()
                     + ", Severity " + request.getSeverity());
            
+                // depends on the severity, the emergency call might be sent or not
                 switch(request.getSeverity()){
                     case LOW:
                     case MEDIUM:
@@ -102,11 +107,6 @@ public class Service3 extends RailwayService3ImplBase{
             }
 
             @Override
-            // when there are no more messages coming from the client( the client calls onCompleted() on the message stream ) ,
-            // calculate the average, 
-            // create the response and send to the client via  responseObserver.onNext()
-            // as the server is only going to send one response, it also does responseObserver.onCompleted() 
-
             public void onCompleted() {
                 System.out.printf(LocalTime.now().toString() + ": Message stream complete \n");
                 // the server signals that it is finished

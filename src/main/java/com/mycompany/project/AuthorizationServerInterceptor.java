@@ -17,7 +17,8 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
 /**
- *
+ * This class verifies if he client is authenticated using a Token
+ * 
  * @author alvar
  */
 public class AuthorizationServerInterceptor implements ServerInterceptor {

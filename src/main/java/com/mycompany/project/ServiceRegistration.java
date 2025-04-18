@@ -10,7 +10,7 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
 /**
- *
+ * The 3 services are registered
  * @author alvar
  */
 // This code is adapted from https://github.com/jmdns/jmdns

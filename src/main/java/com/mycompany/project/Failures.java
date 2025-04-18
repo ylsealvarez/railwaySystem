@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
  */
 
 /**
- *
+ * This class manages the Failure Frame
  * @author alvar
  */
 public class Failures extends javax.swing.JInternalFrame {
@@ -225,6 +225,7 @@ public class Failures extends javax.swing.JInternalFrame {
                 @Override
                 public void onNext(FailureResponse response) {
                 System.out.print("Response from server is ready\n");
+                System.out.println("FailureID " + response.getFailureID() + ", Action: " + response.getMaintenCall() + ", Emergency: " + response.getEmergencyCall());
                 SwingUtilities.invokeLater(() -> {
                     FailureResponse.append(
                         LocalTime.now() + " FailureID: " + response.getFailureID() +
@@ -246,7 +247,7 @@ public class Failures extends javax.swing.JInternalFrame {
             requestObserver = Client3.getFailureReport(responseObserver);
         }).start(); // start second thread
         
-            FailuresRequest.setText("Ready to initiate the stream during this journey");
+            FailuresRequest.setText("Initializing the Failure Report for this journey");
     }//GEN-LAST:event_PrepareButtonActionPerformed
 
     private void ReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportButtonActionPerformed
@@ -260,7 +261,7 @@ public class Failures extends javax.swing.JInternalFrame {
             
         new Thread(() -> {
             try {
-                if (FailuresRequest.getText().contains("Ready to initiate")) {
+                if (FailuresRequest.getText().contains("Initializing")) {
                     FailuresRequest.setText(""); 
                 }
                 SwingUtilities.invokeLater(() -> {
@@ -289,8 +290,8 @@ public class Failures extends javax.swing.JInternalFrame {
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinishButtonActionPerformed
               
         requestObserver.onCompleted();
-        FailuresRequest.append("Stream initiated during this journey is terminated.");
-        FailureResponse.append("Stream initiated during this journey is terminated.");
+        FailuresRequest.append("Stream for this journey is terminated.");
+        FailureResponse.append("Stream for this journey is terminated.");
         System.out.println("Stream finished");
         
     }//GEN-LAST:event_FinishButtonActionPerformed

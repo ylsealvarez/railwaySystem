@@ -13,7 +13,7 @@ import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 /**
- *
+ * It has the methods for the discovery of services
  * @author alvar
  */
 public class ServiceDiscovery {

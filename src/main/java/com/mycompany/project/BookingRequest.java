@@ -5,11 +5,11 @@
 package com.mycompany.project;
 
 /**
- *
+ * We create a class BookingRequest for managing our 2nd service
+ * we define the attributes for this class
  * @author alvar
  */
 public class BookingRequest {
-    
     private int passengerID;
     private int bookingID;
     

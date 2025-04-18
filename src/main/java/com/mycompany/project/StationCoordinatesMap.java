@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- *
+ * This class defines the Map and methods to implement the 1st Service
  * @author alvar
  */
 public class StationCoordinatesMap {
@@ -73,7 +73,7 @@ public class StationCoordinatesMap {
     }
     
     public int getStatusbyTrain(String trainStation){ 
-       // int randomStatus = getRandomNumber();
+
         return getRandomNumber(); 
     }
     

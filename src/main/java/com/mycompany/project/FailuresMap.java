@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- *
+ * This class defines the Map to implement the 3rd Service
  * @author alvar
  */
 public class FailuresMap {

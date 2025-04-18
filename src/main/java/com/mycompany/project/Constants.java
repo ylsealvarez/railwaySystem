@@ -9,7 +9,7 @@ import io.grpc.Metadata;
 import static io.grpc.Metadata.ASCII_STRING_MARSHALLER;
 
 /**
- *
+ * This class defines the constants for the AUTHENTICATION
  * @author alvar
  */
 public class Constants {

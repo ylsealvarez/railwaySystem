@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
- *
+ * Service 2- "Passenger Information System"
  * @author alvar
  */
 public class Service2 extends RailwayService2ImplBase{
@@ -60,7 +60,10 @@ public class Service2 extends RailwayService2ImplBase{
     }
         
     
-    /*// ClientStreaming- the availability on trains is obtained after the control of each passenger
+    /* ClientStreaming- 
+    * the availability on trains is obtained after the control of each passenger
+    * @param request
+    * @param responseObserver
     */ 
     
     public StreamObserver<BookingRequest> passengersBooking(StreamObserver<AvailabilityResponse> responseObserver){
@@ -101,10 +104,7 @@ public class Service2 extends RailwayService2ImplBase{
 
                 System.out.println("Available Seats: " + avaSeats);
                 System.out.println("Ocuppied Seats: " + occupSeats);
-                // the server calls onNext one time only on the response observer
-                // calling onNext() more than once will result in a runtime error
-                // the gRPC infrastructure know that in client streaming the server must send only
-                // one reply
+
                 responseObserver.onNext(reply);
 
                 // the server signals that it is finished
@@ -116,8 +116,8 @@ public class Service2 extends RailwayService2ImplBase{
     
      /*
      * UNARY for each seat booking is sent a message with info about confirmation and bookingID
-     * @param responseObserver - response to the client is return via this object
-     * @return
+     * @param request
+     * @param responseObserver
      */
     
     public void seatBooking(SeatBookingRequest request,StreamObserver<SeatBookingResponse> response) {
@@ -131,10 +131,10 @@ public class Service2 extends RailwayService2ImplBase{
                .setBookingID(bookingid)
                .setConfirmation(conf)
                .build();
+        
+        System.out.println("Please note your BookingID: " + bookingid + ", Status: " + conf);
         response.onNext(sbr);
         response.onCompleted();
 
-    }
-    
-    
+    }    
 }

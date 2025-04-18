@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
  */
 
 /**
- *
+ * This class manages the Passenger Frame 
  * @author alvar
  */
 public class Passenger extends javax.swing.JInternalFrame {
@@ -255,7 +255,8 @@ public class Passenger extends javax.swing.JInternalFrame {
 
             @Override
             public void onNext(AvailabilityResponse response){
-                System.out.print("Response from server is ready\n ");
+                System.out.print("Response from server2 is ready\n ");
+                System.out.println("Check-in completed. \n Available Seats: " + response.getAvailableSeats() + ", Occupied Seats: " + response.getOccupiedSeats());
                 ResponsePassenger.setText(LocalTime.now().toString() + " Check-in completed. \n Available Seats: " 
                         + response.getAvailableSeats() + ", Occupied Seats " + response.getOccupiedSeats());
             }
@@ -288,11 +289,11 @@ public class Passenger extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SendBookingButtonActionPerformed
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinishButtonActionPerformed
-        requestObserver.onCompleted();
+        requestObserver.onCompleted(); // finish the stream
     }//GEN-LAST:event_FinishButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
-        Client2.cancelBooking(); // stop the stream
+        Client2.cancelBooking(); // stop the stream suddenly
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     

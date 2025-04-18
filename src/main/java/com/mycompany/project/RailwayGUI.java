@@ -8,18 +8,14 @@ package com.mycompany.project;
 
 
 /**
- *
+ * The main Frame
  * @author alvar
  */
 public class RailwayGUI extends javax.swing.JFrame {
 
-    //Client1 Client1;
-    /**
-     * Creates new form RailwayGUI
-     */
     public RailwayGUI() {
         initComponents();
-        //Client1 = new Client1();
+     
     }
 
     /**

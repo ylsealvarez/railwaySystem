@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
  */
 
 /**
- *
+ * This class manages the Tracking Frame
  * @author alvar
  */
 public class Tracking extends javax.swing.JInternalFrame {
@@ -36,9 +36,7 @@ public class Tracking extends javax.swing.JInternalFrame {
             Logger.getLogger(Tracking.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    
-    
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,12 +182,11 @@ public class Tracking extends javax.swing.JInternalFrame {
                             .append(response.getGpsCoordinates())
                             .append("\n");
                 }
-            }
-            
+            } 
             SwingUtilities.invokeLater(() -> {
-                ResponseTracking.setText(responseString.toString());
+                ResponseTracking.setText(responseString.toString()); 
             });
-        }).start(); // start second thread
+        }).start(); // start this thread
     }//GEN-LAST:event_PositioningButtonActionPerformed
 
 
@@ -206,19 +203,3 @@ public class Tracking extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-    /*public StatusResponse getTrainStatus(String trainStation, int trainID){
-
-        ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 50051)
-                .usePlaintext()
-                .build();
-        RailwayService1Grpc.RailwayService1BlockingStub stub= RailwayService1Grpc.newBlockingStub(channel);
-
-        StationRequest request = StationRequest.newBuilder().setTrainStation(trainStation).setTrainID(trainID).build();
-        StatusResponse response = stub.TrainStatus(request);
-        channel.shutdown();
-
-        
-        return response;
-
-    }*/
